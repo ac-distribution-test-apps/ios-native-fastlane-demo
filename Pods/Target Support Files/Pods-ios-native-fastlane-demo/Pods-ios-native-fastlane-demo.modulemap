@@ -1,0 +1,6 @@
+framework module Pods_ios_native_fastlane_demo {
+  umbrella header "Pods-ios-native-fastlane-demo-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_ios_native_fastlane_demoUITests {
+  umbrella header "Pods-ios-native-fastlane-demoUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
