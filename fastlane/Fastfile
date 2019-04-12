@@ -24,29 +24,72 @@ platform :ios do
     build_ios_app(
       output_directory: "build",
       output_name: "app.ipa", 
-      export_method: "development"
+      export_method: "ad-hoc"
     )
   end
 
-  lane :ac_upload do
+  lane :validate_app_center do
+    # default release (not mandatory, no notification)
     appcenter_upload(
-      owner_name: ENV["AC_OWNER"],
-      app_name: ENV["AC_APP"],
+      owner_name: ENV["OWNER"],
+      app_name: ENV["APP_AC"],
       ipa: "./build/app.ipa",
       dsym: "./build/app.app.dSYM.zip",
-      group: "Collaborators,Test",
+      group: "Collaborators"
+    )
+
+    # mandatory, no notification
+    appcenter_upload(
+      owner_name: ENV["OWNER"],
+      app_name: ENV["APP_AC"],
+      ipa: "./build/app.ipa",
+      dsym: "./build/app.app.dSYM.zip",
+      group: "Collaborators",
       mandatory_update: true,
       notify_testers: false
     )
+
+    # not mandatory, notification, multiple destinations
+    appcenter_upload(
+      owner_name: ENV["OWNER"],
+      app_name: ENV["APP_AC"],
+      ipa: "./build/app.ipa",
+      dsym: "./build/app.app.dSYM.zip",
+      group: "Collaborators,private,public",
+      mandatory_update: false,
+      notify_testers: true
+    )
   end
 
-  lane :sxs_upload do
+  lane :validate_hockeyapp do
+    # default release (not mandatory, no notification)
     appcenter_upload(
-      owner_name: ENV["HA_OWNER"],
-      app_name: ENV["HA_APP"],
+      owner_name: ENV["OWNER"],
+      app_name: ENV["APP_HA"],
       ipa: "./build/app.ipa",
-      group: "Collaborators,All-users-of-ios-native-fastlane-demo",
+      dsym: "./build/app.app.dSYM.zip",
+      group: "Collaborators"
+    )
+
+    # mandatory, no notification
+    appcenter_upload(
+      owner_name: ENV["OWNER"],
+      app_name: ENV["APP_HA"],
+      ipa: "./build/app.ipa",
+      dsym: "./build/app.app.dSYM.zip",
+      group: "Collaborators",
       mandatory_update: true,
+      notify_testers: false
+    )
+
+    # not mandatory, notification, multiple destinations
+    appcenter_upload(
+      owner_name: ENV["OWNER"],
+      app_name: ENV["APP_HA"],
+      ipa: "./build/app.ipa",
+      dsym: "./build/app.app.dSYM.zip",
+      group: "Collaborators,sxs-distribution-group,",
+      mandatory_update: false,
       notify_testers: true
     )
   end
