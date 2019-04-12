@@ -21,14 +21,14 @@ or alternatively using `brew cask install fastlane`
 fastlane ios build
 ```
 Description of what the lane does
-### ios ac_upload
+### ios validate_app_center
 ```
-fastlane ios ac_upload
+fastlane ios validate_app_center
 ```
 
-### ios sxs_upload
+### ios validate_hockeyapp
 ```
-fastlane ios sxs_upload
+fastlane ios validate_hockeyapp
 ```
 
 
